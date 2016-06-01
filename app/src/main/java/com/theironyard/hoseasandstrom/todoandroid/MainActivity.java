@@ -3,12 +3,13 @@ package com.theironyard.hoseasandstrom.todoandroid;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemLongClickListener {
 
     ArrayAdapter<String> items;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //...(new View.onClickListener() { } optional
 
         addButton.setOnClickListener(this);
+        list.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -41,5 +43,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         items.add(item);
         text.setText("");
 
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        String item = items.getItem(position);
+        items.remove(item);
+        return true;
     }
 }
